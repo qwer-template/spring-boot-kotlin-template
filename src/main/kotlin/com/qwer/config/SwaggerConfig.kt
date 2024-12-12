@@ -1,15 +1,11 @@
-package com.qwer.config
-
-import io.swagger.annotations.Api
+import io.swagger.v3.oas.annotations.tags.Tag
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.servers.Server
+import org.springdoc.core.models.GroupedOpenApi
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.builders.ApiInfoBuilder
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.service.ApiInfo
-import springfox.documentation.spi.DocumentationType
-import springfox.documentation.spring.web.plugins.Docket
 
 @Configuration
 open class SwaggerConfig {
@@ -20,29 +16,32 @@ open class SwaggerConfig {
     private val host: String? = null
 
     @Bean
-    open fun createRestApi(): Docket {
-        val docket: Docket = if (enable) {
-            Docket(DocumentationType.OAS_30)
-                .host(host)
-                .apiInfo(apiInfo())
-                .select() // 标示只有被 @Api 标注的才能生成API.
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api::class.java))
-                .paths(PathSelectors.any())
-                .build()
+    open fun openAPI(): OpenAPI {
+        return if (enable) {
+            OpenAPI()
+                .info(apiInfo())
+                .servers(listOf(Server().url(host ?: "/")))
         } else {
-            Docket(DocumentationType.OAS_30)
-                .host(host)
-                .apiInfo(ApiInfo.DEFAULT)
-                .select()
-                .apis(RequestHandlerSelectors.none())
-                .build()
+            OpenAPI()
+                .info(Info().title("接口列表").version("1.0"))
+                .servers(emptyList())
         }
-        return docket
     }
-
-    private fun apiInfo(): ApiInfo {
-        return ApiInfoBuilder().title("接口列表") // 大标题
-            .version("1.0") // 版本
-            .build()
+//
+//    @Bean
+//    open fun publicApi(): GroupedOpenApi {
+//        return GroupedOpenApi.builder()
+//            .group("api")
+//            .pathsToMatch("/**")
+//            .packagesToScan("com.qwer")  // 替换成你的包路径
+//            .addOpenApiMethodFilter { method ->
+//                method.declaringClass.isAnnotationPresent(Tag::class.java)
+//            }
+//            .build()
+//    }
+    private fun apiInfo(): Info {
+        return Info()
+            .title("接口列表")
+            .version("1.0")
     }
 }

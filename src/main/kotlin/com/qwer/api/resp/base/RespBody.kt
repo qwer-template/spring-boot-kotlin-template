@@ -1,19 +1,18 @@
 package com.qwer.api.resp.base
 
 import com.qwer.util.ErrorCode
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import java.util.*
 
-@ApiModel
+@Schema
 class RespBody<T> {
-    @ApiModelProperty(value = "状态代码", example = "0")
+    @Schema(description = "状态代码", example = "0")
     var errorCode: String? = null
 
-    @ApiModelProperty(value = "状态信息", example = "成功")
+    @Schema(description = "状态信息", example = "成功")
     var value: String? = null
 
-    @ApiModelProperty(value = "业务数据", example = "")
+    @Schema(description = "业务数据", example = "")
     var data: T? = null
         private set
     var systemCurrentTime = Date()

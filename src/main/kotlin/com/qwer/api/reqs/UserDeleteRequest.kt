@@ -1,11 +1,11 @@
 package com.qwer.api.reqs
 
-import io.swagger.annotations.ApiModelProperty
-import javax.validation.constraints.NotNull
+import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.constraints.NotNull
 
 class UserDeleteRequest {
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     @NotNull(message = "id不能为空")
     lateinit var id: String;
 

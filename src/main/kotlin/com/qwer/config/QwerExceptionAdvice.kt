@@ -3,12 +3,12 @@ package com.qwer.config
 import com.qwer.api.resp.base.RespBody
 import com.qwer.exception.QwerException
 import com.qwer.util.ErrorCode
+import jakarta.validation.ConstraintViolationException
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import javax.validation.ConstraintViolationException
 
 @ControllerAdvice
 class QwerExceptionAdvice {

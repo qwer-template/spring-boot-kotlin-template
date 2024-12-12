@@ -1,6 +1,7 @@
 package com.qwer.api.reqs.base
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
+
 
 /**
  * @Author: Kastrcn
@@ -8,9 +9,9 @@ import io.swagger.annotations.ApiModelProperty
  * @Version 1.0
  */
 open class PageRequest {
-    @ApiModelProperty(value = "当前页码", required = true)
+    @Schema(description = "当前页码", required = false, defaultValue = "1")
     var pageIndex = 1
 
-    @ApiModelProperty(value = "每页条数", required = true)
+    @Schema(description = "每页条数", required = false, defaultValue = "10")
     var pageSize = 10
 }
