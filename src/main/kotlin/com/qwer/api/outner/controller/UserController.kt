@@ -22,17 +22,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Tag(name = "User管理")
-class UserController {
-    @Resource
-    lateinit var httpServletRequest: HttpServletRequest;
+class UserController(
+    val httpServletRequest: HttpServletRequest,
+    val userService: UserService
+) {
+    private val logger = LoggerFactory.getLogger(UserController::class.java)
 
-    @Autowired
-    lateinit var userService: UserService;
-
-    companion object {
-        private val logger = LoggerFactory.getLogger(UserController::class.java)
-
-    }
 
     @Operation(summary = "创建User版本")
     @PostMapping("api/user/create")

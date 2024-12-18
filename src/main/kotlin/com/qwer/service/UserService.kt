@@ -16,10 +16,8 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class UserService {
+class UserService(val userRepository: UserRepository) {
 
-    @Autowired
-    lateinit var userRepository: UserRepository;
 
     fun create(request: UserCreateRequest, userId: String): Boolean {
         val user = User(
